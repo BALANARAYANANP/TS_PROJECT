@@ -1,7 +1,7 @@
 import { User } from '../Interfaces/User'
  import { Request, Response } from 'express'
 
-import { Usermodel, sequelize ,Profilemodel } from '../models'
+import { Usermodel, sequelize ,Profilemodel, Childmodel } from '../models'
 
 
 export const createUser = async (req: Request , res: Response) =>{
@@ -21,7 +21,10 @@ export const createUser = async (req: Request , res: Response) =>{
 export const getUser = async (req:Request , res:Response) =>{
     try{
         const users = await Usermodel.findAll({
-            include: [{ model: Profilemodel, as: "profile" }],
+            include: [{ model: Profilemodel, as: "profile" },  {
+                model: Childmodel,
+                as: "children",
+              },],
           });
           
     res.status(200).json(users)

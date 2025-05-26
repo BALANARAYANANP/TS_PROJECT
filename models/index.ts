@@ -3,6 +3,7 @@
 import { Sequelize } from 'sequelize';
 import { initUsermodel, Usermodel } from './Usermodel';
 import { initProfilemodel, Profilemodel } from './Profilemodel';
+import { initChildmodel, Childmodel } from './Childmodel';
 
 
 const sequelize = new Sequelize('Novastrid', 'root', 'root', {
@@ -16,10 +17,12 @@ const sequelize = new Sequelize('Novastrid', 'root', 'root', {
 
 initUsermodel(sequelize);
 initProfilemodel(sequelize)
+initChildmodel(sequelize)
 
 const models = {
   Usermodel,
   Profilemodel,
+  Childmodel
 };
 
 Object.values(models).forEach((model: any) => {
@@ -32,5 +35,6 @@ Object.values(models).forEach((model: any) => {
 export {
   sequelize,
   Usermodel,
-  Profilemodel
+  Profilemodel,
+  Childmodel
 };

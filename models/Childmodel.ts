@@ -1,29 +1,33 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { Profile } from "../Interfaces/Profile";
 import { Usermodel } from "./Usermodel";
+import { Child } from "../Interfaces/Child";
 // import { DB } from "./index";
 const sequelize = require('../models')
 
 
-export class Profilemodel extends Model <Profile> implements  Profile {
+export class Childmodel extends Model <Child> implements  Child {
 
-    public bio! : string;
+    public name! : string;
     public age! : number;
     public userId!: number;
+
     static associate(models: any) {
-        Profilemodel.belongsTo(models.Usermodel, {
-          foreignKey: "userId",
-          as: "user",
+        Childmodel.belongsTo(models.Usermodel, {
+          foreignKey: 'userId',
+          as: 'user',
         });
+
+       
       }
     }
+    
 
 
-
-export function initProfilemodel(sequelize:Sequelize):typeof Profilemodel {
-Profilemodel.init(
+export function initChildmodel(sequelize:Sequelize):typeof Childmodel {
+Childmodel.init(
     {
-        bio:{
+        name:{
             type : DataTypes.STRING,
             allowNull : false
         },
@@ -33,16 +37,15 @@ Profilemodel.init(
         },
         userId :{
             type: DataTypes.INTEGER,
-            allowNull: false,
-            unique: true
+            allowNull: false
 
         }
     },{
-        tableName: 'Profiles',
+        tableName: 'children',
          sequelize,
     }
     
 )
-return Profilemodel
+return Childmodel
 
 }
