@@ -1,7 +1,7 @@
 import { User } from '../Interfaces/User'
  import { Request, Response } from 'express'
 
-import { Usermodel, sequelize } from '../models'
+import { Usermodel, sequelize ,Profilemodel } from '../models'
 
 
 export const createUser = async (req: Request , res: Response) =>{
@@ -20,7 +20,10 @@ export const createUser = async (req: Request , res: Response) =>{
 
 export const getUser = async (req:Request , res:Response) =>{
     try{
-    const users = await Usermodel.findAll();
+        const users = await Usermodel.findAll({
+            include: [{ model: Profilemodel, as: "profile" }],
+          });
+          
     res.status(200).json(users)
     }catch(err){
         res.status(400).json({Message: "Unable To Fetch Users"})

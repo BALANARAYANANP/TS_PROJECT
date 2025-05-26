@@ -1,7 +1,7 @@
 import express from 'express'
 import router from './routes/userRoutes'
-// const sequelize  = require('./config/db')
-import {sequelize} from './config/database'
+
+import {sequelize} from './models'
 
 const app = express()
 app.use(express.json())
@@ -13,7 +13,7 @@ async function start(){
     try{
         await sequelize.authenticate()
         console.log("Database Connected")
-        await sequelize.sync();
+        await sequelize.sync({alter: true});
 
         app.listen(3000, ()=>{
             console.log("Server is Running On PORT 3000");

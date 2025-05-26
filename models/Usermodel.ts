@@ -11,6 +11,13 @@ export class Usermodel extends Model <User> implements User {
     public age?: number;
     public readonly createdAt! : Date;
     public readonly UpdatedAt! : Date;
+    
+    static associate(models: any) {
+        Usermodel.hasOne(models.Profilemodel, {
+          foreignKey: "userId",
+          as: "profile",
+        });
+      }
  
 }
 
