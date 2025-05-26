@@ -1,0 +1,49 @@
+import { DataTypes, Model, Sequelize } from "sequelize"
+import { User } from "../Interfaces/User";
+
+
+
+
+export class Usermodel extends Model <User> implements User {
+    public id!: number;
+    public name! : string;
+    public email! : string;
+    public age?: number;
+    public readonly createdAt! : Date;
+    public readonly UpdatedAt! : Date;
+ 
+}
+
+export function initUsermodel(sequelize:Sequelize):typeof Usermodel {
+Usermodel.init(
+    {
+        id:{
+
+            type : DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+
+        },
+        name:{
+            type : DataTypes.STRING,
+            allowNull: false
+        },
+        email:{
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
+        },
+        age:{
+            type : DataTypes.INTEGER,
+            allowNull: true
+        }
+    },
+    {
+        tableName: 'Users',
+        sequelize,
+    }
+)
+return Usermodel 
+
+}

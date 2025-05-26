@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev --respawn --transpile-only app.ts",
+    "start": "ts-node app.ts"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "sequelize": "^6.37.7",
+    "sequelize-cli": "^6.6.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
