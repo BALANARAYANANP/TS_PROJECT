@@ -9,10 +9,15 @@ export const createUser = async (req: Request , res: Response) =>{
     const t = await sequelize.transaction()
 
     try{
+       const  existingUser = await Usermodel.findOne({where : {email : userData.email}})
+       if(existingUser) 
+        res.status(401).json({Error : "Email Already Exists"}) 
+    else{
+
     const result = await Usermodel.create(userData,{transaction:t})
     await t.commit()
     res.status(200).send(result)
-    }catch(err:any){
+    }}catch(err:any){
         res.status(400).json({message: "Unable to Create User " ,err: err.message})
         t.rollback()
     }

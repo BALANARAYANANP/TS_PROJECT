@@ -2,7 +2,7 @@ import multer , {FileFilterCallback} from 'multer'
 
 import path from 'path'
 import { Request } from 'express'
-
+const file_size = 1 * 1024 * 2024
 
 
 const storage = multer.diskStorage({
@@ -23,6 +23,7 @@ const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallb
     if (file.fieldname === 'profilePic') {
       // Allow only image files for profilePic
       if (ext === '.jpg' || ext === '.jpeg' || ext === '.png') {
+        
         cb(null, true);
       } else {
         cb(new Error('Only image files are allowed for profilePic'));
@@ -38,4 +39,6 @@ const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallb
       cb(new Error('Unexpected field'));
     }
   };
-  export const uploadDocument = multer({ storage, fileFilter });
+  export const uploadDocument = multer({ storage, fileFilter, limits :{
+    fileSize : file_size
+  } });

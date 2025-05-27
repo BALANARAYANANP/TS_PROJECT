@@ -1,3 +1,4 @@
+
 export interface Profile {
 
     bio: string;
@@ -6,3 +7,4 @@ export interface Profile {
     profilePic? : string,
     resume? : string
  }
+
