@@ -21,6 +21,15 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
+      profilePic :{
+        type : Sequelize.STRING,
+        allowNull: false
+
+      },
+      resume:{
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

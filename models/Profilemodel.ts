@@ -10,6 +10,8 @@ export class Profilemodel extends Model <Profile> implements  Profile {
     public bio! : string;
     public age! : number;
     public userId!: number;
+    public profilePic!: string;
+    public resume?: string ;
     static associate(models: any) {
         Profilemodel.belongsTo(models.Usermodel, {
           foreignKey: "userId",
@@ -36,12 +38,21 @@ Profilemodel.init(
             allowNull: false,
             unique: true
 
+        },
+        profilePic:{
+            type : DataTypes.STRING,
+            allowNull: false
+        }, 
+        resume:{
+            type : DataTypes.STRING,
+            allowNull: false
         }
     },{
         tableName: 'Profiles',
+        timestamps: false,
          sequelize,
     }
-    
+
 )
 return Profilemodel
 

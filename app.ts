@@ -1,10 +1,13 @@
 import express from 'express'
 import router from './routes/userRoutes'
+import path from 'path'
 
 import {Profilemodel, sequelize} from './models'
 
 const app = express()
 app.use(express.json())
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 app.use('/route', router)
 

@@ -3,12 +3,19 @@ import { createUser, getById, getUser , updateUser , deleteUser } from "../Contr
 import { Router } from 'express';
 import  {createProfile, getProfile}  from "../Controllers/ProfileControllers"
 import { createChild, getChild, getChildbyId } from "../Controllers/ChildController";
+import { upload } from "../middleware/imageUpload";
+import { uploadDocument } from "../middleware/fileUpload";
+
 const router = Router();
 
 router.get('/', getUser);
 router.get('/getprofile',getProfile)
 router.post('/new', createUser)
-router.post('/profile', createProfile)
+router.post('/profile' ,uploadDocument.fields([
+    { name: 'profilePic', maxCount: 1 },
+    { name: 'resume', maxCount: 1 }
+  ])
+  , createProfile)
 
 router.post('/child', createChild)
 router.get('/getchild', getChild)
