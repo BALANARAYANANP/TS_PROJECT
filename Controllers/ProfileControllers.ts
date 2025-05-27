@@ -17,7 +17,7 @@ export const createProfile = async(req:Request, res:Response) =>{
             res.status(400).send("User Not Created")
         }
     }catch(err:any){
-        res.status(200).json({"Error Occured :" : err.message})
+        res.status(401).json({"Error Occured :" : err.message})
     }
  }
 
