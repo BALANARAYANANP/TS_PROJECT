@@ -1,16 +1,19 @@
 import { Request, Response } from "express";
 import { Child } from "../Interfaces/Child";
 import { Childmodel , Usermodel} from "../models";
+import { childService } from "../Services/childServices";
+
+const childServices = new childService
 
 
 
 export const createChild = async(req:Request, res:Response) =>{
     const data : Child = req.body
-    console.log(data)
+    
 
     try{
-        const result = await Childmodel.create(data);
-        console.log(result);
+        const result = await childServices.childCreation(data);
+        
         if(result)
             res.status(200).json({"User Created" : result})
         else{
@@ -23,9 +26,7 @@ export const createChild = async(req:Request, res:Response) =>{
 
  export const getChild = async (req: Request, res: Response) => {
     try {
-        const result = await Childmodel.findAll({
-            include: [{ model: Usermodel, as: "user" }],
-          });
+        const result = await childServices.getAllChilds();
           
       if(result)
        res.status(200).send(result);
@@ -37,10 +38,10 @@ export const createChild = async(req:Request, res:Response) =>{
   };
 
   export const getChildbyId = async (req: Request, res: Response) => {
+    const id = Number(req.params.id)
     try {
-        const result = await Childmodel.findAll()
-        //     include: [{ model: Usermodel, as: "user" }],
-        //   });
+        const result = await childServices.getOneChild(id)
+       
           
       if(result)
        res.status(200).send(result);

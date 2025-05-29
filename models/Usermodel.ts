@@ -43,7 +43,7 @@ Usermodel.init(
         email:{
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
+          
         },
         age:{
             type : DataTypes.INTEGER,

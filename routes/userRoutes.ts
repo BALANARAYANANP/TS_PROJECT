@@ -8,6 +8,8 @@ import { uploadDocument } from "../middleware/fileUpload";
 import { validate } from "../middleware/ValidateUser";
 import { userSchema } from "../Validators/userValidator";
 import { profileSchema } from "../Validators/childValidator";
+import { sendTestEmail } from "../Controllers/EmailControllers";
+import { Postemail } from "../Controllers/EmailControllers";
 // import {userSchema} from '../Validators/userValidator'
 
 
@@ -16,6 +18,8 @@ const router = Router();
 router.get('/', getUser);
 router.get('/getprofile',getProfile)
 router.post('/new', validate(userSchema), createUser);
+router.post('/email',Postemail)
+router.post('/emails',sendTestEmail)
 router.post('/profile' ,uploadDocument.fields([
     { name: 'profilePic', maxCount: 1 },
     { name: 'resume', maxCount: 1 }

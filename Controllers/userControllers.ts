@@ -2,35 +2,34 @@ import { User } from '../Interfaces/User'
  import { Request, Response } from 'express'
 
 import { Usermodel, sequelize ,Profilemodel, Childmodel } from '../models'
+import { userService } from '../Services/userServices';
+
+const UserServices = new userService()
 
 
 export const createUser = async (req: Request , res: Response) =>{
     const userData: User = req.body
+    const id = Number(req.params.id)
     const t = await sequelize.transaction()
 
     try{
-       const  existingUser = await Usermodel.findOne({where : {email : userData.email}})
-       if(existingUser) 
-        res.status(401).json({Error : "Email Already Exists"}) 
-    else{
+    //    const existingUser = await UserServices.getOneUser(id)
+    //    if(existingUser) 
+    //     res.status(401).json({Error : "User Already Exists"}) 
+    // else{
 
-    const result = await Usermodel.create(userData,{transaction:t})
-    await t.commit()
+    const result = await UserServices.userCreation(userData)
     res.status(200).send(result)
-    }}catch(err:any){
+    // }
+}catch(err:any){
         res.status(400).json({message: "Unable to Create User " ,err: err.message})
-        t.rollback()
+        
     }
 };
 
 export const getUser = async (req:Request , res:Response) =>{
     try{
-        const users = await Usermodel.findAll({
-            include: [{ model: Profilemodel, as: "profile" },  {
-                model: Childmodel,
-                as: "children",
-              },],
-          });
+        const users = await UserServices.getAllUsers()
           
     res.status(200).json(users)
     }catch(err){
@@ -42,7 +41,7 @@ export const getUser = async (req:Request , res:Response) =>{
 export const getById = async (req:Request , res:Response) =>{
     const id = Number(req.params.id)
     try{
-        const User = await Usermodel.findByPk(id)
+        const User = await UserServices.getOneUser(id)
         if(User){
             res.status(200).send(User)
         }else{
@@ -61,9 +60,9 @@ export const updateUser = async(req:Request, res:Response) => {
     const id= Number(req.params.id)
 
     try{
-        const user = await Usermodel.findByPk(id)
+        const user = await UserServices.getOneUser(id)
         if(user){
-            const update =  await Usermodel.update(userData, { where: {id}})
+            const update =  await UserServices.updateUser(userData, id)
             res.status(200).json({message: "User Updated Sucessffully"})
 
         }
@@ -80,9 +79,9 @@ export const deleteUser = async (req:Request, res:Response) =>{
     const id = Number(req.params.id)
 
     try{
-        const user = await Usermodel.findByPk(id)
+        const user = await UserServices.getOneUser(id)
         if(user){
-            const result = await Usermodel.destroy({where : {id}})
+            const result = await UserServices.deleteUser(id)
             res.status(200).json({message : "User Deleted Sucessfully"})
 
         }else{

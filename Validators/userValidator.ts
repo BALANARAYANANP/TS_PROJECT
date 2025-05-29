@@ -12,7 +12,7 @@ export const userSchema = z.object({
   .email("Invalid email address")
   .min(5, "Email must be at least 5 characters")
   .max(100, "Email too long")
-  .trim()
+  .trim() 
   .toLowerCase(),
   age: z.number({required_error: "Age is required",
     invalid_type_error: "Age must be a number",

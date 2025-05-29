@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { Profile } from "../Interfaces/Profile";
 import { Profilemodel, Usermodel } from "../models";
+import { profileService } from "../Services/profilemodel";
+
+const profileServices = new profileService
 
 export const createProfile = async (req: Request, res: Response) => {
   const files = req.files as {
@@ -8,7 +11,8 @@ export const createProfile = async (req: Request, res: Response) => {
   };
 
   const { bio, age, userId } = req.body;
-  const profilePic = files["profilePic"]?.[0].filename;
+  console.log(files)
+  const profilePic = files["profilePic"][0].filename;
   const resume = files["resume"]?.[0].filename;
   const data: Profile = {
     bio,
@@ -20,7 +24,7 @@ export const createProfile = async (req: Request, res: Response) => {
   console.log(data);
 
   try {
-    const result = await Profilemodel.create(data);
+    const result = await profileServices.profileCreation(data);
     console.log(result);
     if (result) res.status(200).json({ "User Created": result });
     else {
@@ -33,9 +37,7 @@ export const createProfile = async (req: Request, res: Response) => {
 
 export const getProfile = async (req: Request, res: Response) => {
   try {
-    const result = await Profilemodel.findAll({
-      include: [{ model: Usermodel, as: "user" }],
-    });
+    const result = await profileServices.getAllProfiles();
 
     if (result) res.status(200).send(result);
     else res.status(404).send("No Profile Found");

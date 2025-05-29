@@ -9,6 +9,8 @@
     "express": "^5.1.0",
     "multer": "^2.0.0",
     "mysql2": "^3.14.1",
+    "node-cron": "^4.0.7",
+    "nodemailer": "^7.0.3",
     "sequelize": "^6.37.7",
     "sequelize-cli": "^6.6.3",
     "zod": "^3.25.30"
