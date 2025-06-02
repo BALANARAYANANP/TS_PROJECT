@@ -5,18 +5,23 @@
     "start": "ts-node app.ts"
   },
   "dependencies": {
+    "@fast-csv/format": "^5.0.2",
     "body-parser": "^2.2.0",
+    "csv-parser": "^3.2.0",
     "express": "^5.1.0",
+    "html-pdf": "^3.0.1",
     "multer": "^2.0.0",
     "mysql2": "^3.14.1",
     "node-cron": "^4.0.7",
     "nodemailer": "^7.0.3",
+    "puppeteer": "^24.9.0",
     "sequelize": "^6.37.7",
     "sequelize-cli": "^6.6.3",
     "zod": "^3.25.30"
   },
   "devDependencies": {
     "@types/express": "^5.0.2",
+    "@types/html-pdf": "^3.0.3",
     "@types/multer": "^1.4.12",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"

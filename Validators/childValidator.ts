@@ -1,6 +1,6 @@
 import {z} from 'zod'
 
-export const profileSchema = z.object({
+export const childSchema = z.object({
 
     name : z.string()
     .min(3, "Name must contain 3 letters")

@@ -26,7 +26,7 @@ export const createProfile = async (req: Request, res: Response) => {
   try {
     const result = await profileServices.profileCreation(data);
     console.log(result);
-    if (result) res.status(200).json({ "User Created": result });
+    if (result) res.status(200).json({ "Profile Created": result });
     else {
       res.status(400).send("User Not Created");
     }

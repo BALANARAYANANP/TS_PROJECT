@@ -31,7 +31,7 @@ export const Postemail = async (req: Request , res: Response): Promise<void> =>{
 
 export const sendTestEmail = async (req: Request, res: Response): Promise<void> => {
   const data: sendEmail = req.body;
-  console.log(data)
+ 
 
   try {
     const mailOption: emailData | null = await emailServices.getEmailType(data);

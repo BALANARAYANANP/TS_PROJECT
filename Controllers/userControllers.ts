@@ -7,7 +7,7 @@ import { userService } from '../Services/userServices';
 const UserServices = new userService()
 
 
-export const createUser = async (req: Request , res: Response) =>{
+export const createUser = async (req: Request , res: Response): Promise<void> =>{
     const userData: User = req.body
     const id = Number(req.params.id)
     const t = await sequelize.transaction()
@@ -42,6 +42,7 @@ export const getById = async (req:Request , res:Response) =>{
     const id = Number(req.params.id)
     try{
         const User = await UserServices.getOneUser(id)
+        
         if(User){
             res.status(200).send(User)
         }else{
