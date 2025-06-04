@@ -10,9 +10,12 @@ export class userService {
     }
   }
 
-  async getAllUsers() {
+  async getAllUsers(page: number, limit: number) {
+    const offset = (page - 1)* limit
     try {
-      return await Usermodel.findAll({
+      const {count, rows} =  await Usermodel.findAndCountAll({
+        offset,
+        limit,
         include: [
           { model: Profilemodel, as: "profile" },
           {
@@ -21,6 +24,12 @@ export class userService {
           },
         ],
       });
+      return{
+        page,
+        totalPages : Math.ceil(count / limit),
+        totalUsres : count,
+        users: rows
+      }
     } catch (err) {
       throw new Error("getUser has  thrown an error" + err);
     }

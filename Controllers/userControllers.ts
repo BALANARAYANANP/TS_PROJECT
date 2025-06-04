@@ -28,8 +28,12 @@ export const createUser = async (req: Request , res: Response): Promise<void> =>
 };
 
 export const getUser = async (req:Request , res:Response) =>{
+    const page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || 4
+   
     try{
-        const users = await UserServices.getAllUsers()
+        
+        const users = await UserServices.getAllUsers(page, limit)
           
     res.status(200).json(users)
     }catch(err){
